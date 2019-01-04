@@ -4,29 +4,34 @@ import { BrowserModule  } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
+import { AuthGuard } from './guard/auth.guard';
 
 const routes: Routes =[
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'login',
     pathMatch: 'full',
-  }, {
-    path: '',
-    component: AdminLayoutComponent,
-    children: [
-        {
-      path: '',
-      loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
-  }]}
-    // { path: 'dashboard',      component: DashboardComponent },
-    // { path: 'user-profile',   component: UserProfileComponent },
-    // { path: 'table-list',     component: TableListComponent },
-    // { path: 'typography',     component: TypographyComponent },
-    // { path: 'icons',          component: IconsComponent },
-    // { path: 'maps',           component: MapsComponent },
-    // { path: 'notifications',  component: NotificationsComponent },
-    // { path: 'upgrade',        component: UpgradeComponent },
-    // { path: '',               redirectTo: 'dashboard', pathMatch: 'full' }
+    },
+    {
+        path: 'admin',
+        component: AdminLayoutComponent,
+        children: [
+            {
+          path: '',
+          loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
+            }],
+        canActivate: [AuthGuard],
+    },
+    {
+        path: '',
+        component: MainLayoutComponent,
+        children: [
+            {
+                path: '',
+                loadChildren: './layouts/main-layout/main-layout.module#MainLayoutModule'
+            }]
+    }
 ];
 
 @NgModule({
