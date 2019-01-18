@@ -47,7 +47,9 @@ namespace FM.WEB
             services.AddDbContext<FMContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IPersonRepository, PersonRepository>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IPersonService, PersonService>();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {

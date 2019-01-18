@@ -1,22 +1,23 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ApiHelper } from 'src/app/helpers/api.helper';
+import { Observable } from 'rxjs';
 //import 'rxjs/add/operator/map'
 
 @Injectable()
 export class AuthService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private _apiHelper:ApiHelper) { }
 
-  login(username: string, password: string) {
-
+  login(username: string, password: string){
     let headers = new HttpHeaders();
-    headers.append('Access-Control-Allow-Origin', '*')
+    headers.append('Access-Control-Allow-Origin', '*');
 
-      this.http.post("http://localhost:51379/api/auth/token", null, { headers : headers}).subscribe(x => {
-      console.log(x);
-    });
+    return this.http.post(this._apiHelper.Auth,
+      { email: username, password: password },
+      { headers: headers });
   }
 
   logout() {
-    localStorage.removeItem('currentUser');
+    localStorage.removeItem('logedUser');
   }
 }

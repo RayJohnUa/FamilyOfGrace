@@ -1,0 +1,18 @@
+.error_wraper
+{
+  position: absolute;
+  bottom: 0;
+  right: 20px;
+}
+
+.error_wraper_content{
+  position: relative;
+}
+
+.error_wraper_content .close{
+  position: absolute;
+  top: -9px;
+  right: -15px;
+  font-size: 17px;
+  color: #bd2130;
+}

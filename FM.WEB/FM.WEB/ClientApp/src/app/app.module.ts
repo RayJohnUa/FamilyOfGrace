@@ -11,16 +11,38 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ErrorComponent } from "./error/error/error.component";
 import { AuthGuard } from "./guard/auth.guard";
 import { AuthService } from "./services/auth/auth.service";
+import { ErrorService } from "./error/error.service";
+import { ApiHelper } from "./helpers/api.helper";
 import { routing } from './app.routing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule, MatGridListModule, MatCardModule , MatCheckboxModule, MatListModule ,MatMenuModule, MatToolbarModule, MatIconModule, MatSidenavModule } from '@angular/material';
 
 @NgModule({
-  imports: [BrowserModule, HttpClientModule , FormsModule, routing],
-  declarations: [AppComponent, AppLayoutComponent, SiteLayoutComponent, SiteFooterComponent, LoginComponent, DashboardComponent, HomeComponent, AboutComponent, ProfileComponent],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    FormsModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatMenuModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
+    MatGridListModule,
+    MatCardModule,
+    routing,
+  ],
+  declarations: [AppComponent , AppLayoutComponent, SiteLayoutComponent, SiteFooterComponent, LoginComponent, DashboardComponent, HomeComponent, AboutComponent, ProfileComponent, ErrorComponent],
   providers: [
     AuthGuard,
     AuthService,
+    ApiHelper,
+    ErrorService
   ],
   bootstrap: [AppComponent]
 })

@@ -26,7 +26,7 @@ namespace FM.WEB.Controllers
         }
 
         [HttpPost("token")]
-        public async Task<ActionResult> Token([FromForm]UserModel model)
+        public async Task<ActionResult> Token(UserModel model)
         {
             var identity = GetIdentity(model.Email, model.Password);
             if (identity == null)

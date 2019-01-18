@@ -1,0 +1,13 @@
+<div class="error_wraper">
+  <div *ngFor="let item of model" class="alert alert-danger" role="alert">
+    <div class="error_wraper_content">
+      <div>
+        {{item.error}}
+      </div>
+      <div class="close" (click)="delete(item)">
+        <p><i class="fas fa-times"></i></p>
+      </div>
+    </div>
+  </div>
+</div>
+
