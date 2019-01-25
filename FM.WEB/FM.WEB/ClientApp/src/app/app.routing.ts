@@ -10,9 +10,10 @@ import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { ProfileComponent } from './profile/profile.component';
 
 import { AuthGuard } from './guard/auth.guard';
+import { PersonsComponent } from './persons/persons.component';
+import { MailingComponent } from './mailing/mailing.component';
 
 const appRoutes: Routes = [
 
@@ -33,7 +34,8 @@ const appRoutes: Routes = [
     component: AppLayoutComponent,
     children: [
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'profile', component: ProfileComponent }
+      { path: 'persons', component: PersonsComponent },
+      { path: 'mailing', component: MailingComponent }
     ],
     canActivate: [AuthGuard],
   },

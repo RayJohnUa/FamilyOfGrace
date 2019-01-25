@@ -27,7 +27,7 @@ namespace FM.REPOSITORIES.Classes
         {
             return _entities.SingleOrDefault(s => s.Id == id && !s.IsDelete);
         }
-        public void Insert(T entity)
+        public T Insert(T entity)
         {
             if (entity == null)
             {
@@ -35,6 +35,7 @@ namespace FM.REPOSITORIES.Classes
             }
             _entities.Add(entity);
             _context.SaveChanges();
+            return entity;
         }
 
         public void Update(T entity)
@@ -62,6 +63,7 @@ namespace FM.REPOSITORIES.Classes
                 throw new ArgumentNullException("entity");
             }
             _entities.Remove(entity);
+            _context.SaveChanges();
         }
 
         public void SaveChanges()

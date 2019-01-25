@@ -20,10 +20,10 @@ namespace FM.WEB.Controllers
         {
             _personService = personService;
         }
-        [HttpGet]
-        public IEnumerable<Person> GetList()
+        [HttpGet("List")]
+        public ActionResult<IEnumerable<Person>> GetList()
         {
-            return _personService.GetPersons();
+            return Ok(_personService.GetPersons());
         }
 
         [HttpGet]
@@ -32,24 +32,44 @@ namespace FM.WEB.Controllers
             return _personService.GetPerson(id);
         }
 
-        [HttpPost]
-        public bool AddPerson(Person person)
+        [HttpPost("Add")]
+        public ActionResult<bool> AddPerson(Person person)
         {
-            return _personService.InsertPerson(person);
+            if (ModelState.IsValid)
+            {
+                var response = new
+                {
+                    isSuccess = true,
+                    id = _personService.InsertPerson(person)?.Id
+                };
+                return Ok(response);
+            }
+            return BadRequest(ModelState);
         }
 
-        [HttpPut]
-        public bool Update(int id, Person person)
+        [HttpPut("Update")]
+        public ActionResult<bool> Update(int id, [FromBody]Person person)
         {
             var oldperson = _personService.GetPerson(id);
             if (oldperson == null)
                 return BadRequest("Таку людину не знайдено");
-            return _personService.UpdatePerson();
+            if (ModelState.IsValid)
+            {
+                oldperson.FirstName = person.FirstName;
+                oldperson.LastName = person.LastName;
+                oldperson.Telephone = person.Telephone;
+                return Ok(_personService.UpdatePerson(oldperson));
+            }
+            return BadRequest(ModelState);
         }
 
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("Delete")]
+        public ActionResult<bool> Delete(int id)
         {
+            var oldperson = _personService.GetPerson(id);
+            if (oldperson == null)
+                return BadRequest("Таку людину не знайдено");
+            return Ok(_personService.DeletePerson(id));
         }
     }
 }

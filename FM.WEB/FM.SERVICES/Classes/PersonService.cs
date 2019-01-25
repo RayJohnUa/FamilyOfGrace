@@ -27,18 +27,16 @@ namespace FM.SERVICES.Classes
             return _personRepository.Get(id);
         }
 
-        public bool InsertPerson(Person Person)
+        public Person InsertPerson(Person Person)
         {
             try
             {
-                _personRepository.Insert(Person);
+                return _personRepository.Insert(Person);
             }
             catch (Exception e)
             {
-                return false;
+                return null;
             }
-
-            return true;
         }
         public bool UpdatePerson(Person Person)
         {
@@ -60,7 +58,6 @@ namespace FM.SERVICES.Classes
             {
                 Person Person = GetPerson(id);
                 _personRepository.Remove(Person);
-                _personRepository.SaveChanges();
             }
             catch (Exception e)
             {

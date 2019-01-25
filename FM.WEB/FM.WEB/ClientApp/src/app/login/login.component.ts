@@ -3,6 +3,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from "../services/auth/auth.service";
 import { ErrorService } from '../error/error.service';
 
+export interface IToken {
+  token : string
+}
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -46,7 +50,7 @@ export class LoginComponent implements OnInit {
     if (this.isValid()) {
       this.authService.login(this.model.email, this.model.password).subscribe(
         data => {
-          localStorage.setItem('logedUser', data.toString());
+          localStorage.setItem('Token', data.token);
           this.router.navigate(["admin/dashboard"]);
         },
         err => {

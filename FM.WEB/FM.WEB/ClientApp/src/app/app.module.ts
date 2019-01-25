@@ -18,13 +18,20 @@ import { ErrorService } from "./error/error.service";
 import { ApiHelper } from "./helpers/api.helper";
 import { routing } from './app.routing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatGridListModule, MatCardModule , MatCheckboxModule, MatListModule ,MatMenuModule, MatToolbarModule, MatIconModule, MatSidenavModule } from '@angular/material';
+import { MatInputModule, MatButtonModule , MatFormFieldModule , MatPaginatorModule , MatTableModule, MatGridListModule, MatCardModule , MatCheckboxModule, MatListModule ,MatMenuModule, MatToolbarModule, MatIconModule, MatSidenavModule } from '@angular/material';
+import { PersonsComponent } from './persons/persons.component';
+import { MailingComponent } from './mailing/mailing.component';
+import { TokenInterceptor } from './services/token.interceptor';
+import { PersonService } from './services/person/person.service';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 @NgModule({
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    Ng2SmartTableModule,
+    MatInputModule,
     BrowserAnimationsModule,
     MatButtonModule,
     MatCheckboxModule,
@@ -35,14 +42,23 @@ import { MatButtonModule, MatGridListModule, MatCardModule , MatCheckboxModule, 
     MatListModule,
     MatGridListModule,
     MatCardModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatFormFieldModule,
     routing,
   ],
-  declarations: [AppComponent , AppLayoutComponent, SiteLayoutComponent, SiteFooterComponent, LoginComponent, DashboardComponent, HomeComponent, AboutComponent, ProfileComponent, ErrorComponent],
+  declarations: [AppComponent, MailingComponent , PersonsComponent , AppLayoutComponent, SiteLayoutComponent, SiteFooterComponent, LoginComponent, DashboardComponent, HomeComponent, AboutComponent, ProfileComponent, ErrorComponent],
   providers: [
     AuthGuard,
     AuthService,
+    PersonService,
     ApiHelper,
-    ErrorService
+    ErrorService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

@@ -7,7 +7,7 @@ namespace FM.SERVICES.Interfaces
     {
         IEnumerable<Person> GetPersons();
         Person GetPerson(long id);
-        bool InsertPerson(Person Person);
+        Person InsertPerson(Person Person);
         bool UpdatePerson(Person Person);
         bool DeletePerson(long id);
     }
