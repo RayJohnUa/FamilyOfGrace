@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { AppLayoutComponent } from './_layout/app-layout/app-layout.component';
@@ -18,12 +18,14 @@ import { ErrorService } from "./error/error.service";
 import { ApiHelper } from "./helpers/api.helper";
 import { routing } from './app.routing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatInputModule, MatButtonModule , MatFormFieldModule , MatPaginatorModule , MatTableModule, MatGridListModule, MatCardModule , MatCheckboxModule, MatListModule ,MatMenuModule, MatToolbarModule, MatIconModule, MatSidenavModule } from '@angular/material';
+import { MatInputModule, MatButtonModule, MatExpansionModule , MatFormFieldModule , MatPaginatorModule , MatTableModule, MatGridListModule, MatCardModule , MatCheckboxModule, MatListModule ,MatMenuModule, MatToolbarModule, MatIconModule, MatSidenavModule, MatSelectModule } from '@angular/material';
 import { PersonsComponent } from './persons/persons.component';
 import { MailingComponent } from './mailing/mailing.component';
 import { TokenInterceptor } from './services/token.interceptor';
 import { PersonService } from './services/person/person.service';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { MailingService } from './services/mailing/mailing.service';
+import { MailingSingleComponent } from './mailing-single/mailing-single.component';
 
 @NgModule({
   imports: [
@@ -45,15 +47,19 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
     MatTableModule,
     MatPaginatorModule,
     MatFormFieldModule,
+    MatExpansionModule,
+    MatSelectModule,
+    ReactiveFormsModule,
     routing,
   ],
-  declarations: [AppComponent, MailingComponent , PersonsComponent , AppLayoutComponent, SiteLayoutComponent, SiteFooterComponent, LoginComponent, DashboardComponent, HomeComponent, AboutComponent, ProfileComponent, ErrorComponent],
+  declarations: [AppComponent, MailingSingleComponent , MailingComponent , PersonsComponent , AppLayoutComponent, SiteLayoutComponent, SiteFooterComponent, LoginComponent, DashboardComponent, HomeComponent, AboutComponent, ProfileComponent, ErrorComponent],
   providers: [
     AuthGuard,
     AuthService,
     PersonService,
     ApiHelper,
     ErrorService,
+    MailingService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

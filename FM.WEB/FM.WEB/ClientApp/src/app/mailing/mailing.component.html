@@ -1,8 +1,19 @@
-<div class="mat-elevation-z8">
-  <ng2-smart-table
-    [settings]="settings"
-    [source]="dataSource"
-    (deleteConfirm)="onDeleteConfirm($event)"
-    (editConfirm)="onSaveConfirm($event)"
-    (createConfirm)="onCreateConfirm($event)"></ng2-smart-table>
+
+
+<div class="grid-container">
+  <h1 class="mat-h1">Розсилка</h1>
+  <mat-grid-list cols="2" rowHeight="350px">
+    <mat-card *ngFor="let item of dataSource" class="example-card mailing">
+      <mat-card-header>
+        <mat-card-title>{{item.name}}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+         {{item.content}}
+      </mat-card-content>
+      <mat-card-actions>
+        <a color="primary" routerLink="details/{{item.id}}" mat-button>Показати/Розіслати</a>
+        <button color="warn" mat-button>Видалити</button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-grid-list>
 </div>

@@ -70,5 +70,18 @@ namespace FM.REPOSITORIES.Classes
         {
             _context.SaveChanges();
         }
+
+        public void Remove(List<T> entity)
+        {
+            if (entity != null)
+            {
+                foreach (var item in entity)
+                {
+                    _entities.Remove(item);
+                }
+
+                _context.SaveChanges();
+            }
+        }
     }
 }

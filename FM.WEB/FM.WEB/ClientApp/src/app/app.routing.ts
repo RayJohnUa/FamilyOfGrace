@@ -14,6 +14,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuard } from './guard/auth.guard';
 import { PersonsComponent } from './persons/persons.component';
 import { MailingComponent } from './mailing/mailing.component';
+import { MailingSingleComponent } from './mailing-single/mailing-single.component';
 
 const appRoutes: Routes = [
 
@@ -35,7 +36,8 @@ const appRoutes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'persons', component: PersonsComponent },
-      { path: 'mailing', component: MailingComponent }
+      { path: 'mailing', component: MailingComponent },
+      { path: 'mailing/details/:id', component: MailingSingleComponent }
     ],
     canActivate: [AuthGuard],
   },

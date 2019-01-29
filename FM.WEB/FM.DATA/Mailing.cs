@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace FM.DATA
@@ -12,6 +13,6 @@ namespace FM.DATA
         [Required]
         public string Content { get; set; }
 
-        public List<Person> Receivers { get; set; }
+        public virtual ICollection<MailingPerson> MailingPerson { get; set; }
     }
 }
