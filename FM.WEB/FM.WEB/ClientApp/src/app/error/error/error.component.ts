@@ -13,9 +13,9 @@ export class ErrorComponent implements OnInit {
     
   }
 
-  private model: GlobalError[] = [];
+  public  model: GlobalError[] = [];
   
-  private onError(x: GlobalError) {
+  public onError(x: GlobalError) {
     this.model.push(x);
   }
   delete(item) {

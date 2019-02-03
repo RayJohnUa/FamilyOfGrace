@@ -17,7 +17,7 @@ export class MailingComponent implements OnInit {
 
   ngOnInit() {
     this._mailingService.getMailings().subscribe(x => {
-      console.log(x);
+      this.dataSource = x;
     });
   }
 

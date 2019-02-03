@@ -7,6 +7,7 @@ using FM.SERVICES.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace FM.WEB.Controllers
 {
@@ -23,7 +24,12 @@ namespace FM.WEB.Controllers
         [HttpGet("List")]
         public ActionResult<IEnumerable<Person>> GetList()
         {
-            return Ok(_personService.GetPersons());
+			var res = _personService.GetPersons().ToList();
+			return Ok(JsonConvert.SerializeObject(res, new JsonSerializerSettings()
+			{
+				PreserveReferencesHandling = PreserveReferencesHandling.Objects,
+				Formatting = Formatting.Indented
+			}));
         }
 
         [HttpGet]

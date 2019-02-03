@@ -8,6 +8,7 @@ using FM.WEB.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace FM.WEB.Controllers
 {
@@ -25,14 +26,24 @@ namespace FM.WEB.Controllers
         [HttpGet("List")]
         public ActionResult<IEnumerable<Mailing>> GetList()
         {
+
             var res = _mailingService.GetMailings().ToList();
-            return Ok(res);
+            return Ok(JsonConvert.SerializeObject(res , new JsonSerializerSettings()
+			{
+				PreserveReferencesHandling = PreserveReferencesHandling.Objects,
+				Formatting = Formatting.Indented
+			}));
         }
 
         [HttpGet("Get")]
-        public Mailing GetMailing(int id)
+        public ActionResult<Mailing> GetMailing(int id)
         {
-            return _mailingService.GetMailing(id);
+			var res = _mailingService.GetMailing(id);
+			return Ok(JsonConvert.SerializeObject(res, new JsonSerializerSettings()
+			{
+				PreserveReferencesHandling = PreserveReferencesHandling.Objects,
+				Formatting = Formatting.Indented
+			}));
         }
 
         [HttpPost("Add")]

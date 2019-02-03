@@ -1,5 +1,5 @@
 <div class="grid-container">
-  <h1 class="mat-h1">Розсилка - {{ datasource.name }}</h1>
+  <h1 class="mat-h1">Розсилка - {{ model.Name }}</h1>
   <mat-card class="example-card mailing">
 
     <form class="form-horizontal">
@@ -8,7 +8,7 @@
         <div class="form-group">
           <label class="col-md-4 control-label" for="name">Назва розсилки</label>  
           <div class="col-md-4">
-            <input id="name" name="name" type="text" placeholder="Назва розсилки" [(ngModel)]="datasource.name" class="form-control input-md"> 
+            <input id="name" name="name" type="text" placeholder="Назва розсилки" [(ngModel)]="model.Name" class="form-control input-md"> 
           </div>
         </div>
 
@@ -16,7 +16,7 @@
         <div class="form-group">
           <label class="col-md-4 control-label" for="textarea">Текст повідомлення</label>
           <div class="col-md-4">                     
-            <textarea rows="10" class="form-control" id="textarea" [(ngModel)]="datasource.content" name="textarea"></textarea>
+            <textarea rows="10" class="form-control" id="textarea" [(ngModel)]="model.Content" name="textarea"></textarea>
           </div>
         </div>
 
@@ -25,8 +25,8 @@
           <label class="col-md-4 control-label" for="selectmultiple">Select Multiple</label>
           <div class="col-md-4">
             <mat-form-field>
-              <mat-select placeholder="Люди" [formControl]="toppings" multiple>
-                <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping.firstName + " " + topping.lastName}}</mat-option>
+              <mat-select placeholder="Люди"  [compareWith]="compareFn" [formControl]="toppings" multiple>
+                <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping.FirstName + " " + topping.LastName}}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>

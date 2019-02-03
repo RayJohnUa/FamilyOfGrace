@@ -26,6 +26,7 @@ import { PersonService } from './services/person/person.service';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { MailingService } from './services/mailing/mailing.service';
 import { MailingSingleComponent } from './mailing-single/mailing-single.component';
+import { UsersComponent } from './users/users.component';
 
 @NgModule({
   imports: [
@@ -52,7 +53,7 @@ import { MailingSingleComponent } from './mailing-single/mailing-single.componen
     ReactiveFormsModule,
     routing,
   ],
-  declarations: [AppComponent, MailingSingleComponent , MailingComponent , PersonsComponent , AppLayoutComponent, SiteLayoutComponent, SiteFooterComponent, LoginComponent, DashboardComponent, HomeComponent, AboutComponent, ProfileComponent, ErrorComponent],
+  declarations: [AppComponent, UsersComponent , MailingSingleComponent , MailingComponent , PersonsComponent , AppLayoutComponent, SiteLayoutComponent, SiteFooterComponent, LoginComponent, DashboardComponent, HomeComponent, AboutComponent, ProfileComponent, ErrorComponent],
   providers: [
     AuthGuard,
     AuthService,

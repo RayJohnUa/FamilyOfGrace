@@ -63,15 +63,19 @@ namespace FM.SERVICES.Classes
                 var mailing = _mailingRepository.Get(Mailing.Id);
                 _mailingPersonRepository.Remove(Mailing.MailingPerson?.ToList());
                 Mailing.MailingPerson = new List<MailingPerson>();
-                foreach (var person in persons)
-                {
-                    Mailing.MailingPerson.Add(new MailingPerson()
-                    {
-                        IsDelete = false,
-                        MailingId = Mailing.Id,
-                        PersonId = person.Id
-                    });
-                }
+				if (persons != null)
+				{
+					foreach (var person in persons)
+					{
+						Mailing.MailingPerson.Add(new MailingPerson()
+						{
+							IsDelete = false,
+							MailingId = Mailing.Id,
+							PersonId = person.Id
+						});
+					}
+				}
+                
                 _mailingRepository.Update(Mailing);
             }
             catch (Exception e)
