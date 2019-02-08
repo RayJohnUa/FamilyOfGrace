@@ -23,4 +23,9 @@ export class PersonService {
   addPerson(person) {
     return this.http.post(this._apiHelper.PersonAdd, person);
   }
+
+  assignePerson(assigne) {
+    return this.http.post(this._apiHelper.AsignToGroupPerson, assigne);
+  }
+  
 }

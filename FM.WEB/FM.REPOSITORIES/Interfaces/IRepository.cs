@@ -12,7 +12,7 @@ namespace FM.REPOSITORIES.Interfaces
         IQueryable<T> GetAll();
         T Get(long id);
         T Insert(T entity);
-        void Update(T entity);
+        T Update(T entity);
         void Delete(T entity);
         void Remove(T entity);
         void Remove(List<T> entity);

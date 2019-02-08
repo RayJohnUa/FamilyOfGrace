@@ -25,18 +25,18 @@ export class PersonsComponent implements OnInit {
       confirmSave: true,
     },
     columns: {
-      Id: {
+      id: {
         title: 'ІД',
         editable: false,
         addable: false,
       },
-      FirstName: {
+      firstName: {
         title: 'Імя'
       },
-      LastName: {
+      lastName: {
         title: 'Фамілія'
       },
-      Telephone: {
+      telephone: {
         title: 'Телефон'
       }
     },
@@ -52,7 +52,7 @@ export class PersonsComponent implements OnInit {
   }
 
   onDeleteConfirm(event) {
-    this._personService.deletePerson(event.data.Id).subscribe(x => {
+    this._personService.deletePerson(event.data.id).subscribe(x => {
       if(x) {
         event.confirm.resolve();
       }
@@ -61,7 +61,7 @@ export class PersonsComponent implements OnInit {
 
   onSaveConfirm(event) {
     if (this.validation(event.newData)) {
-      this._personService.updatePerson(event.newData.Id, event.newData).subscribe(x => {
+      this._personService.updatePerson(event.newData.id, event.newData).subscribe(x => {
         if (x) {
           event.confirm.resolve(event.newData);
         }
@@ -71,7 +71,7 @@ export class PersonsComponent implements OnInit {
 
   onCreateConfirm(event) {
     if (this.validation(event.newData)) {
-      event.newData.Id = 0;
+      event.newData.id = 0;
       this._personService.addPerson(event.newData).subscribe(x => {
           event.confirm.resolve(event.newData);
       });
@@ -82,7 +82,7 @@ export class PersonsComponent implements OnInit {
   private validation(person) {
     var phoneno = new RegExp("^[+]380[0-9]{9}");
     if (person) {
-      if (person.FirstName && person.LastName && phoneno.test(person.Telephone)) {
+      if (person.firstName && person.lastName && phoneno.test(person.telephone)) {
         return true;
       }
     }

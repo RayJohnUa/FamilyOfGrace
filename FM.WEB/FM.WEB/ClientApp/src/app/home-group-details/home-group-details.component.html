@@ -1,0 +1,20 @@
+
+<div class="grid-container">
+  <h1 class="mat-h1">Дамашня група - {{ dataSource.name }}</h1>
+  <mat-grid-list cols="2" rowHeight="1:1">
+    <mat-grid-tile>
+      <mat-card>
+        <mat-selection-list [compareWith]="compareFn" [(ngModel)]="dataSource.people" (selectionChange)="selectionChange($event)" #shoes>
+          <mat-list-option  [value]="p" *ngFor="let p of person">
+            {{p.firstName + " " + p.lastName}}
+          </mat-list-option>
+        </mat-selection-list>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-card>
+        Тижні
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

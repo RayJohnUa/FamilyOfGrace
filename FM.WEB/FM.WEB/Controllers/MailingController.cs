@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using FM.DATA;
 using FM.SERVICES.Interfaces;
 using FM.WEB.Model;
@@ -18,43 +19,37 @@ namespace FM.WEB.Controllers
     public class MailingController : ControllerBase
     {
         private readonly IMailingService _mailingService;
-        public MailingController(IMailingService mailingService)
+        private readonly IMapper _mapper;
+        public MailingController(IMailingService mailingService , IMapper mapper)
         {
             _mailingService = mailingService;
+            _mapper = mapper;
         }
 
         [HttpGet("List")]
-        public ActionResult<IEnumerable<Mailing>> GetList()
+        public ActionResult<IEnumerable<MailingViewModel>> GetList()
         {
 
             var res = _mailingService.GetMailings().ToList();
-            return Ok(JsonConvert.SerializeObject(res , new JsonSerializerSettings()
-			{
-				PreserveReferencesHandling = PreserveReferencesHandling.Objects,
-				Formatting = Formatting.Indented
-			}));
+            return Ok(_mapper.Map<List<MailingViewModel>>(res));
         }
 
         [HttpGet("Get")]
-        public ActionResult<Mailing> GetMailing(int id)
+        public ActionResult<MailingViewModel> GetMailing(int id)
         {
 			var res = _mailingService.GetMailing(id);
-			return Ok(JsonConvert.SerializeObject(res, new JsonSerializerSettings()
-			{
-				PreserveReferencesHandling = PreserveReferencesHandling.Objects,
-				Formatting = Formatting.Indented
-			}));
+			return Ok(_mapper.Map<MailingViewModel>(res));
         }
 
         [HttpPost("Add")]
-        public ActionResult<bool> AddPerson(Mailing mailing)
+        public ActionResult<bool> AddMailind(MailingViewModel mailing)
         {
             if (ModelState.IsValid)
             {
                 var response = new
                 {
                     isSuccess = true,
-                    id = _mailingService.InsertMailing(mailing)?.Id
+                    id = _mailingService.InsertMailing(_mapper.Map<Mailing>(mailing))?.Id
                 };
                 return Ok(response);
             }
@@ -71,7 +66,7 @@ namespace FM.WEB.Controllers
             {
                 oldMailing.Name = mailing.Name;
                 oldMailing.Content = mailing.Content;
-                return Ok(_mailingService.UpdateMailing(oldMailing , mailing.Persons));
+                return Ok(_mailingService.UpdateMailing(oldMailing , _mapper.Map<List<Person>>(mailing.Persons) ));
             }
             return BadRequest(ModelState);
         }

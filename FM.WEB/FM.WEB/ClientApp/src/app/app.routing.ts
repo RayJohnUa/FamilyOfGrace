@@ -15,6 +15,8 @@ import { AuthGuard } from './guard/auth.guard';
 import { PersonsComponent } from './persons/persons.component';
 import { MailingComponent } from './mailing/mailing.component';
 import { MailingSingleComponent } from './mailing-single/mailing-single.component';
+import { HomeGroupComponent } from './home-group/home-group.component';
+import { HomeGroupDetailsComponent } from './home-group-details/home-group-details.component';
 
 const appRoutes: Routes = [
 
@@ -37,11 +39,13 @@ const appRoutes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'persons', component: PersonsComponent },
       { path: 'mailing', component: MailingComponent },
-      { path: 'mailing/details/:id', component: MailingSingleComponent }
-    ],
+      { path: 'mailing/details/:id', component: MailingSingleComponent },
+      { path: 'homegroup', component: HomeGroupComponent },
+      { path: 'homegroup/details/:id', component: HomeGroupDetailsComponent }
+      ],
     canActivate: [AuthGuard],
   },
-
+  
   { path: 'login', component: LoginComponent },
   { path: '**', redirectTo: '' }
 ];

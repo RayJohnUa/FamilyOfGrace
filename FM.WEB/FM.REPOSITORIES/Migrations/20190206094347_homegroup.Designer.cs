@@ -4,41 +4,22 @@ using FM.REPOSITORIES;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FM.REPOSITORIES.Migrations
 {
     [DbContext(typeof(FMContext))]
-    partial class FMContextModelSnapshot : ModelSnapshot
+    [Migration("20190206094347_homegroup")]
+    partial class homegroup
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.2.0-rtm-35687")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("FM.DATA.GroupSesionPerson", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("GroupSessionId");
-
-                    b.Property<bool>("IsDelete");
-
-                    b.Property<int>("PersonId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("GroupSessionId");
-
-                    b.HasIndex("PersonId");
-
-                    b.ToTable("GroupSesionPerson");
-                });
 
             modelBuilder.Entity("FM.DATA.GroupSession", b =>
                 {
@@ -48,13 +29,9 @@ namespace FM.REPOSITORIES.Migrations
 
                     b.Property<DateTime>("Date");
 
-                    b.Property<int>("HomeGroupId");
-
                     b.Property<bool>("IsDelete");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("HomeGroupId");
 
                     b.ToTable("GroupSessions");
                 });
@@ -123,6 +100,8 @@ namespace FM.REPOSITORIES.Migrations
                     b.Property<string>("FirstName")
                         .IsRequired();
 
+                    b.Property<int?>("GroupSessionId");
+
                     b.Property<int?>("HomeGroupId");
 
                     b.Property<bool>("IsDelete");
@@ -134,6 +113,8 @@ namespace FM.REPOSITORIES.Migrations
                         .IsRequired();
 
                     b.HasKey("Id");
+
+                    b.HasIndex("GroupSessionId");
 
                     b.HasIndex("HomeGroupId");
 
@@ -165,27 +146,6 @@ namespace FM.REPOSITORIES.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("FM.DATA.GroupSesionPerson", b =>
-                {
-                    b.HasOne("FM.DATA.GroupSession", "GroupSession")
-                        .WithMany("GroupSesionPersons")
-                        .HasForeignKey("GroupSessionId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("FM.DATA.Person", "Person")
-                        .WithMany("GroupSesionPersons")
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("FM.DATA.GroupSession", b =>
-                {
-                    b.HasOne("FM.DATA.HomeGroup", "HomeGroup")
-                        .WithMany("GroupSession")
-                        .HasForeignKey("HomeGroupId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("FM.DATA.MailingPerson", b =>
                 {
                     b.HasOne("FM.DATA.Mailing", "Mailing")
@@ -201,7 +161,11 @@ namespace FM.REPOSITORIES.Migrations
 
             modelBuilder.Entity("FM.DATA.Person", b =>
                 {
-                    b.HasOne("FM.DATA.HomeGroup", "HomeGroup")
+                    b.HasOne("FM.DATA.GroupSession")
+                        .WithMany("SeesinPerson")
+                        .HasForeignKey("GroupSessionId");
+
+                    b.HasOne("FM.DATA.HomeGroup")
                         .WithMany("People")
                         .HasForeignKey("HomeGroupId");
                 });

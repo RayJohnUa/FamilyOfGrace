@@ -14,5 +14,9 @@ namespace FM.REPOSITORIES.Classes
 
         }
 
+        public IQueryable<Person> GetListUnesinePersons(int groupId)
+        {
+            return _entities.Where(x => x.HomeGroupId != groupId);
+        }
     }
 }

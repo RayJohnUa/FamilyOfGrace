@@ -27,6 +27,9 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { MailingService } from './services/mailing/mailing.service';
 import { MailingSingleComponent } from './mailing-single/mailing-single.component';
 import { UsersComponent } from './users/users.component';
+import { HomeGroupComponent } from './home-group/home-group.component';
+import { HomeGroupService } from './services/homegroup/home-group.service';
+import { HomeGroupDetailsComponent } from './home-group-details/home-group-details.component';
 
 @NgModule({
   imports: [
@@ -53,7 +56,7 @@ import { UsersComponent } from './users/users.component';
     ReactiveFormsModule,
     routing,
   ],
-  declarations: [AppComponent, UsersComponent , MailingSingleComponent , MailingComponent , PersonsComponent , AppLayoutComponent, SiteLayoutComponent, SiteFooterComponent, LoginComponent, DashboardComponent, HomeComponent, AboutComponent, ProfileComponent, ErrorComponent],
+  declarations: [AppComponent, HomeGroupDetailsComponent, HomeGroupComponent , UsersComponent , MailingSingleComponent , MailingComponent , PersonsComponent , AppLayoutComponent, SiteLayoutComponent, SiteFooterComponent, LoginComponent, DashboardComponent, HomeComponent, AboutComponent, ProfileComponent, ErrorComponent],
   providers: [
     AuthGuard,
     AuthService,
@@ -61,6 +64,7 @@ import { UsersComponent } from './users/users.component';
     ApiHelper,
     ErrorService,
     MailingService,
+    HomeGroupService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

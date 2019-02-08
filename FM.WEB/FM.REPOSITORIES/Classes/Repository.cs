@@ -38,13 +38,14 @@ namespace FM.REPOSITORIES.Classes
             return entity;
         }
 
-        public void Update(T entity)
+        public T Update(T entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException("entity");
             }
             _context.SaveChanges();
+            return entity;
         }
 
         public void Delete(T entity)

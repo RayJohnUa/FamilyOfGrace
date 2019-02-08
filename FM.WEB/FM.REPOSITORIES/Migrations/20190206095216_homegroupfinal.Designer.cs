@@ -4,14 +4,16 @@ using FM.REPOSITORIES;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FM.REPOSITORIES.Migrations
 {
     [DbContext(typeof(FMContext))]
-    partial class FMContextModelSnapshot : ModelSnapshot
+    [Migration("20190206095216_homegroupfinal")]
+    partial class homegroupfinal
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,13 +50,9 @@ namespace FM.REPOSITORIES.Migrations
 
                     b.Property<DateTime>("Date");
 
-                    b.Property<int>("HomeGroupId");
-
                     b.Property<bool>("IsDelete");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("HomeGroupId");
 
                     b.ToTable("GroupSessions");
                 });
@@ -123,7 +121,7 @@ namespace FM.REPOSITORIES.Migrations
                     b.Property<string>("FirstName")
                         .IsRequired();
 
-                    b.Property<int?>("HomeGroupId");
+                    b.Property<int>("HomeGroupId");
 
                     b.Property<bool>("IsDelete");
 
@@ -178,14 +176,6 @@ namespace FM.REPOSITORIES.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("FM.DATA.GroupSession", b =>
-                {
-                    b.HasOne("FM.DATA.HomeGroup", "HomeGroup")
-                        .WithMany("GroupSession")
-                        .HasForeignKey("HomeGroupId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("FM.DATA.MailingPerson", b =>
                 {
                     b.HasOne("FM.DATA.Mailing", "Mailing")
@@ -203,7 +193,8 @@ namespace FM.REPOSITORIES.Migrations
                 {
                     b.HasOne("FM.DATA.HomeGroup", "HomeGroup")
                         .WithMany("People")
-                        .HasForeignKey("HomeGroupId");
+                        .HasForeignKey("HomeGroupId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

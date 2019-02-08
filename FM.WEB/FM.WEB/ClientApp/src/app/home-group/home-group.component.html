@@ -1,16 +1,13 @@
 
 
 <div class="grid-container">
-  <h1 class="mat-h1">Розсилка</h1>
+  <h1 class="mat-h1">Даманя група</h1>
   <mat-card>
     <mat-card-content>
       <mat-form-field class="example-full-width">
         <input matInput [(ngModel)]="model.name" placeholder="Назва">
       </mat-form-field>
 
-      <mat-form-field class="example-full-width">
-        <textarea matInput [(ngModel)]="model.content" placeholder="Контент"></textarea>
-      </mat-form-field>
       <button mat-button color="primary" (click)="create()">Створити</button>
     </mat-card-content>  
   </mat-card>
@@ -20,12 +17,10 @@
         <mat-card-title>{{item.name}}</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        {{item.content}}
-        <br />
-        <b>Кількість людей : {{item.persons.length}}</b>
+        <b>Кількість людей : {{item.people.length}}</b>
       </mat-card-content>
       <mat-card-actions>
-        <a color="primary" routerLink="details/{{item.id}}" mat-button>Показати/Розіслати</a>
+        <a color="primary" routerLink="details/{{item.id}}" mat-button>Показати</a>
         <button color="warn" (click)="delete(item.id)" mat-button>Видалити</button>
       </mat-card-actions>
     </mat-card>

@@ -66,5 +66,10 @@ namespace FM.SERVICES.Classes
 
             return true;
         }
+
+        public IEnumerable<Person> GetPersons(int groupId)
+        {
+            return _personRepository.GetListUnesinePersons(groupId).ToList();
+        }
     }
 }

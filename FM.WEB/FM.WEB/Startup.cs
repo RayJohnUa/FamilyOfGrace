@@ -1,8 +1,10 @@
+using AutoMapper;
 using FM.REPOSITORIES;
 using FM.REPOSITORIES.Classes;
 using FM.REPOSITORIES.Interfaces;
 using FM.SERVICES.Classes;
 using FM.SERVICES.Interfaces;
+using FM.WEB.Model;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,6 +30,14 @@ namespace FM.WEB
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
+
             services.AddCors();
             services.AddMvc()
 				.SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
@@ -59,14 +69,17 @@ namespace FM.WEB
                         ValidateAudience = false
                     };
                 });
-
+            
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IPersonRepository, PersonRepository>();
             services.AddTransient<IMailingRepository, MailingRepository>();
+            services.AddTransient<IMailingRepository, MailingRepository>();
+            services.AddTransient<IHomeGroupRepository, HomeRepository>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IPersonService, PersonService>();
             services.AddTransient<IMailingService, MailingService>();
+            services.AddTransient<IHomeGroupService, HomeGroupSevice>();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {

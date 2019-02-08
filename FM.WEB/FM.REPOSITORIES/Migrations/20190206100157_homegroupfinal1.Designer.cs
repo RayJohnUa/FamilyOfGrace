@@ -4,14 +4,16 @@ using FM.REPOSITORIES;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FM.REPOSITORIES.Migrations
 {
     [DbContext(typeof(FMContext))]
-    partial class FMContextModelSnapshot : ModelSnapshot
+    [Migration("20190206100157_homegroupfinal1")]
+    partial class homegroupfinal1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,13 +50,9 @@ namespace FM.REPOSITORIES.Migrations
 
                     b.Property<DateTime>("Date");
 
-                    b.Property<int>("HomeGroupId");
-
                     b.Property<bool>("IsDelete");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("HomeGroupId");
 
                     b.ToTable("GroupSessions");
                 });
@@ -175,14 +173,6 @@ namespace FM.REPOSITORIES.Migrations
                     b.HasOne("FM.DATA.Person", "Person")
                         .WithMany("GroupSesionPersons")
                         .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("FM.DATA.GroupSession", b =>
-                {
-                    b.HasOne("FM.DATA.HomeGroup", "HomeGroup")
-                        .WithMany("GroupSession")
-                        .HasForeignKey("HomeGroupId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

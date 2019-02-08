@@ -13,7 +13,7 @@ import { PersonService } from '../services/person/person.service';
 export class MailingSingleComponent implements OnInit, OnDestroy {
   id: number;
   private sub: any;
-  model: any;
+  model: any = {};
   persons: any;
 
   constructor(private route: ActivatedRoute,
@@ -30,22 +30,22 @@ export class MailingSingleComponent implements OnInit, OnDestroy {
     this._personService.getPerson().subscribe(x => {
       this.toppingList = x;
     });
-    console.log(this.model);
+  }
+
+  compareFn(first, second) {
+    return first.id == second.id;
   }
 
   toppings = new FormControl();
   toppingList: any;
 
-  save(persons) {
-    this.model.Persons = this.toppings.value;
-    this._mailingService.update(this.id, this.model).subscribe(x => {
-      console.log(x);
-    });
-  }
-
-  compareFn(person) {
-    return person.MailingPerson.filter(x => {
-      return (x.MailingId === this.id)
+  save() {
+    this._mailingService.update(this.id,
+      {
+        Persons: this.toppings.value,
+        Name: this.model.name,
+        Content: this.model.content
+      }).subscribe(x => {
     });
   }
 

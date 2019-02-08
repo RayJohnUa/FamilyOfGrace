@@ -15,6 +15,10 @@ namespace FM.DATA
         [Required]
         public string Telephone { get; set; }
 
+        public int? HomeGroupId { get; set; }
+        public virtual HomeGroup HomeGroup { get; set; }
+
         public virtual ICollection<MailingPerson> MailingPerson { get; set; }
+        public virtual ICollection<GroupSesionPerson> GroupSesionPersons { get; set; }
     }
 }

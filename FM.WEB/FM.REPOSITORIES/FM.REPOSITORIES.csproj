@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20190206094058_homegroup.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\FM.DATA\FM.DATA.csproj" />
   </ItemGroup>
 
