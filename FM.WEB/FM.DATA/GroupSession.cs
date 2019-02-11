@@ -11,7 +11,7 @@ namespace FM.DATA
         public DateTime Date { get; set; }
 
         public virtual HomeGroup HomeGroup { get; set; }
-        public virtual int HomeGroupId { get; set; }
+        public int HomeGroupId { get; set; }
         public virtual ICollection<GroupSesionPerson> GroupSesionPersons { get; set; }
     }
 }

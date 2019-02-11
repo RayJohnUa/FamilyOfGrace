@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,7 +10,12 @@ namespace FM.WEB.Model
     {
         public int Id { get; set; }
 
+        [Required]
+        public DateTime Date { get; set; }
+        [Required]
+        public int HomeGroupId { get; set; }
+
         public HomeGroupViewModel HomeGroup { get; set; }
-        public virtual ICollection<PersonViewModel> People { get; set; }
+        public ICollection<PersonViewModel> People { get; set; }
     }
 }

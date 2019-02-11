@@ -76,10 +76,14 @@ namespace FM.WEB
             services.AddTransient<IMailingRepository, MailingRepository>();
             services.AddTransient<IMailingRepository, MailingRepository>();
             services.AddTransient<IHomeGroupRepository, HomeRepository>();
+            services.AddTransient<IGroupSessionRepository, GroupSessionRepository>();
+
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IPersonService, PersonService>();
             services.AddTransient<IMailingService, MailingService>();
             services.AddTransient<IHomeGroupService, HomeGroupSevice>();
+            services.AddTransient<IGroupSessionService, GroupSessionService>();
+
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {

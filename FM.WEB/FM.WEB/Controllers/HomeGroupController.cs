@@ -19,11 +19,13 @@ namespace FM.WEB.Controllers
     public class HomeGroupController : ControllerBase
     {
         private readonly IHomeGroupService _groupService;
+        private readonly IGroupSessionService _groupSessionService;
         private readonly IMapper _mapper;
-        public HomeGroupController(IHomeGroupService groupService , IMapper mapper)
+        public HomeGroupController(IHomeGroupService groupService , IMapper mapper , IGroupSessionService groupSessionService)
         {
             _groupService = groupService;
             _mapper = mapper;
+            _groupSessionService = groupSessionService;
         }
 
         [HttpGet("List")]
@@ -77,6 +79,12 @@ namespace FM.WEB.Controllers
             if (oldMailing == null)
                 return BadRequest("Таку домашню шрупу не знайдено");
             return Ok(_groupService.DeleteHomeGroup(id));
+        }
+
+        [HttpPost("AddWeek")]
+        public ActionResult<bool> CreateWeek(int id, [FromBody]GroupSessionViewModel model)
+        {
+            return Ok(_groupSessionService.InsertGroupSession(_mapper.Map<GroupSession>(model)));
         }
     }
 }
