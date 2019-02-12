@@ -31,9 +31,18 @@ namespace FM.WEB.Controllers
         [HttpGet("List")]
         public ActionResult<IEnumerable<HomeGroupViewModel>> GetList()
         {
-
-            var res = _groupService.GetHomeGroups().ToList();
-            return Ok(_mapper.Map<List<HomeGroupViewModel>>(res));
+            try
+            {
+                var res = _groupService.GetHomeGroups().ToList();
+                var rw = _mapper.Map<List<HomeGroupViewModel>>(res);
+                string json = JsonConvert.SerializeObject(rw, Formatting.Indented);
+                return Ok(rw);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         [HttpGet("Get")]

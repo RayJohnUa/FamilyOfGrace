@@ -15,7 +15,6 @@ namespace FM.WEB.Model
         [Required]
         public int HomeGroupId { get; set; }
 
-        public HomeGroupViewModel HomeGroup { get; set; }
-        public ICollection<PersonViewModel> People { get; set; }
+        public ICollection<PersonViewModel> Persons { get; set; }
     }
 }

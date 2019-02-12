@@ -20,6 +20,10 @@ namespace FM.WEB.Model
                     opt => opt.MapFrom(src => src.MailingPerson.Select(x => x.Person))
                 );
 
+            CreateMap<GroupSession, GroupSessionViewModel>()
+                .ForMember(x => x.Persons,
+                    opt => opt.MapFrom(src => src.GroupSesionPersons.Select(x => x.Person)));
+            CreateMap<GroupSessionViewModel, GroupSession>();
             CreateMap<MailingViewModel, Mailing>();
             CreateMap<HomeGroup, HomeGroupViewModel>();
             CreateMap<HomeGroupViewModel, HomeGroup>();

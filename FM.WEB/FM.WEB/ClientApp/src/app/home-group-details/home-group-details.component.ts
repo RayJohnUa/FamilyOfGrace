@@ -45,6 +45,16 @@ export class HomeGroupDetailsComponent implements OnInit, OnDestroy{
     });
   }
 
+  selectionChangeWeek(option , id) {
+    console.log(option.option.value)
+    console.log(option.option._selected)
+    console.log(id);
+  }
+
+  delete(id) {
+    console.log(id);
+  }
+
   ngOnDestroy() {
     this.sub.unsubscribe();
   }

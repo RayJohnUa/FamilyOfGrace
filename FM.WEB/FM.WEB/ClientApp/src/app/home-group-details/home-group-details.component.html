@@ -13,7 +13,34 @@
     </mat-grid-tile>
     <mat-grid-tile>
       <mat-card>
-        Тижні
+        <mat-card class="weekForm">
+          <mat-card-content>
+            <mat-form-field>
+              <input matInput [(ngModel)]="model" [matDatepicker]="picker" placeholder="Choose a date">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <button mat-button color="primary" (click)="create()">Створити</button>
+          </mat-card-content>  
+        </mat-card>
+
+        <mat-accordion>
+          <mat-expansion-panel *ngFor="let item of dataSource.groupSession;">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{ item.date }}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <mat-selection-list [(ngModel)]="dataSource.groupSession.persons" (selectionChange)="selectionChangeWeek($event , item.id)">
+              <mat-list-option [value]="p" *ngFor="let p of dataSource.people">
+                {{p.firstName + " " + p.lastName}}
+              </mat-list-option>
+            </mat-selection-list>
+            <button color="warn" (click)="delete(item.id)" mat-button>Видалити</button>
+          </mat-expansion-panel>
+        </mat-accordion>
       </mat-card>
     </mat-grid-tile>
   </mat-grid-list>

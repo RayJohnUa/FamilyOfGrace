@@ -18,7 +18,7 @@ import { ErrorService } from "./error/error.service";
 import { ApiHelper } from "./helpers/api.helper";
 import { routing } from './app.routing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatInputModule, MatButtonModule, MatExpansionModule , MatFormFieldModule , MatPaginatorModule , MatTableModule, MatGridListModule, MatCardModule , MatCheckboxModule, MatListModule ,MatMenuModule, MatToolbarModule, MatIconModule, MatSidenavModule, MatSelectModule } from '@angular/material';
+import { MatInputModule, MatButtonModule, MatExpansionModule , MatFormFieldModule , MatPaginatorModule , MatTableModule, MatGridListModule, MatCardModule , MatCheckboxModule, MatListModule ,MatMenuModule, MatToolbarModule, MatIconModule, MatSidenavModule, MatSelectModule, MatNativeDateModule } from '@angular/material';
 import { PersonsComponent } from './persons/persons.component';
 import { MailingComponent } from './mailing/mailing.component';
 import { TokenInterceptor } from './services/token.interceptor';
@@ -30,7 +30,7 @@ import { UsersComponent } from './users/users.component';
 import { HomeGroupComponent } from './home-group/home-group.component';
 import { HomeGroupService } from './services/homegroup/home-group.service';
 import { HomeGroupDetailsComponent } from './home-group-details/home-group-details.component';
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
 @NgModule({
   imports: [
     BrowserModule,
@@ -54,6 +54,8 @@ import { HomeGroupDetailsComponent } from './home-group-details/home-group-detai
     MatExpansionModule,
     MatSelectModule,
     ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     routing,
   ],
   declarations: [AppComponent, HomeGroupDetailsComponent, HomeGroupComponent , UsersComponent , MailingSingleComponent , MailingComponent , PersonsComponent , AppLayoutComponent, SiteLayoutComponent, SiteFooterComponent, LoginComponent, DashboardComponent, HomeComponent, AboutComponent, ProfileComponent, ErrorComponent],
@@ -65,6 +67,7 @@ import { HomeGroupDetailsComponent } from './home-group-details/home-group-detai
     ErrorService,
     MailingService,
     HomeGroupService,
+    MatDatepickerModule,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
