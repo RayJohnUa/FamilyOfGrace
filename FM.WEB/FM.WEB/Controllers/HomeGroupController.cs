@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using AutoMapper;
 using FM.DATA;
 using FM.SERVICES.Interfaces;
+using FM.SMSSERVICES;
 using FM.WEB.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -20,12 +22,16 @@ namespace FM.WEB.Controllers
     {
         private readonly IHomeGroupService _groupService;
         private readonly IGroupSessionService _groupSessionService;
+        private readonly IPersonService _personService;
+        private readonly ISmsService _smsService;
         private readonly IMapper _mapper;
-        public HomeGroupController(IHomeGroupService groupService , IMapper mapper , IGroupSessionService groupSessionService)
+        public HomeGroupController(IHomeGroupService groupService , IMapper mapper , IGroupSessionService groupSessionService , IPersonService personService , ISmsService smsService)
         {
             _groupService = groupService;
             _mapper = mapper;
             _groupSessionService = groupSessionService;
+            _personService = personService;
+            _smsService = smsService;
         }
 
         [HttpGet("List")]
@@ -91,9 +97,70 @@ namespace FM.WEB.Controllers
         }
 
         [HttpPost("AddWeek")]
-        public ActionResult<bool> CreateWeek(int id, [FromBody]GroupSessionViewModel model)
+        public ActionResult<bool> CreateWeek(int id, [FromBody]DateTime model)
         {
-            return Ok(_groupSessionService.InsertGroupSession(_mapper.Map<GroupSession>(model)));
+            var res = _groupSessionService.InsertGroupSession(new GroupSession()
+            {
+                Date = model,
+                HomeGroupId = id,
+                IsDelete = false
+            });
+            return Ok(_mapper.Map<GroupSessionViewModel>(res));
+        }
+
+        [HttpDelete("DeleteWeek")]
+        public ActionResult<bool> DeleteWeek(int id)
+        {
+            return Ok(_groupSessionService.DeleteGroupSession(id));
+        }
+
+        [HttpPost("AsignToWeek")]
+        public ActionResult<bool> AsignToWeek(AssignPersonWeekViewModel model)
+        {
+            var oldperson = _personService.GetPerson(model.PersonId);
+            if (oldperson == null)
+                return BadRequest("Таку людину не знайдено");
+            return Ok(_groupSessionService.AssigneToWeek(model.PersonId , model.WeekId , model.IsAssigne));
+        }
+
+        [HttpPost("Send")]
+        public ActionResult<bool> SendSmsPray(int id)
+        {
+            var group = _groupService.GetHomeGroup(id);
+            if (group == null)
+                return BadRequest("Таку групу не знайдено");
+            var groupSesionPersons = group.GroupSession.FirstOrDefault().GroupSesionPersons.ToArray();
+
+            Shuffle(groupSesionPersons);
+
+            for (int i = 0; i < groupSesionPersons.Length; i++)
+            {
+                string body = "";
+                if (i + 1 >= groupSesionPersons.Length)
+                {
+                    body = string.Format("Привіт {0}, твій молитовний партнер на наступний тиждень {1} {2}. Благословенного тобі тижня!", groupSesionPersons[i].Person.FirstName, groupSesionPersons[0].Person.FirstName, groupSesionPersons[0].Person.LastName);
+                }
+                else
+                {
+                    body = string.Format("Привіт {0}, твій молитовний партнер на наступний тиждень {1} {2}. Благословенного тобі тижня!", groupSesionPersons[i].Person.FirstName, groupSesionPersons[i + 1].Person.FirstName, groupSesionPersons[i + 1].Person.LastName);
+                }
+                _smsService.Send(groupSesionPersons[i].Person.Telephone, body);
+            }
+
+            return Ok(true);
+        }
+
+        public static void Shuffle<T>(T[] array)
+        {
+            Random random = new Random();
+            int n = array.Length;
+            for (int i = 0; i < n; i++)
+            {
+                int r = i + random.Next(n - i);
+                T t = array[r];
+                array[r] = array[i];
+                array[i] = t;
+            }
         }
     }
 }

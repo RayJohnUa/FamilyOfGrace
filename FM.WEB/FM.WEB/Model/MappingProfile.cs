@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
 
 namespace FM.WEB.Model
 {
@@ -22,7 +23,9 @@ namespace FM.WEB.Model
 
             CreateMap<GroupSession, GroupSessionViewModel>()
                 .ForMember(x => x.Persons,
-                    opt => opt.MapFrom(src => src.GroupSesionPersons.Select(x => x.Person)));
+                    opt => opt.MapFrom(src => src.GroupSesionPersons.Select(x => x.Person)))
+                .ForMember(x => x.Date,
+                    opt => opt.MapFrom(src => src.Date.ToShortDateString()));
             CreateMap<GroupSessionViewModel, GroupSession>();
             CreateMap<MailingViewModel, Mailing>();
             CreateMap<HomeGroup, HomeGroupViewModel>();

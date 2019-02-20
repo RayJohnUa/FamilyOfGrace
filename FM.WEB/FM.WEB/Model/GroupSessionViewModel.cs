@@ -11,7 +11,7 @@ namespace FM.WEB.Model
         public int Id { get; set; }
 
         [Required]
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
         [Required]
         public int HomeGroupId { get; set; }
 

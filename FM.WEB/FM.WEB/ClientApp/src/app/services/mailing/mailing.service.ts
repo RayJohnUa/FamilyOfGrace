@@ -25,6 +25,10 @@ export class MailingService {
     return this.http.put(this._apiHelper.MailingUpdate + "?id=" + id, mailing);
   }
 
+  send(id, mailing) {
+    return this.http.post(this._apiHelper.MailingSend + "?id=" + id, mailing);
+  }
+
   add(mailing) {
     return this.http.post(this._apiHelper.MailingAdd, mailing);
   }

@@ -18,7 +18,7 @@ import { ErrorService } from "./error/error.service";
 import { ApiHelper } from "./helpers/api.helper";
 import { routing } from './app.routing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatInputModule, MatButtonModule, MatExpansionModule , MatFormFieldModule , MatPaginatorModule , MatTableModule, MatGridListModule, MatCardModule , MatCheckboxModule, MatListModule ,MatMenuModule, MatToolbarModule, MatIconModule, MatSidenavModule, MatSelectModule, MatNativeDateModule } from '@angular/material';
+import { MatInputModule, MatButtonModule, MatExpansionModule , MatFormFieldModule , MatPaginatorModule , MatTableModule, MatGridListModule, MatCardModule , MatCheckboxModule, MatListModule ,MatMenuModule, MatToolbarModule, MatIconModule, MatSidenavModule, MatSelectModule, MatNativeDateModule, DateAdapter } from '@angular/material';
 import { PersonsComponent } from './persons/persons.component';
 import { MailingComponent } from './mailing/mailing.component';
 import { TokenInterceptor } from './services/token.interceptor';
@@ -76,4 +76,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+ 
+}

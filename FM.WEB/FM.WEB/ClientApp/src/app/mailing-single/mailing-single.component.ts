@@ -49,6 +49,17 @@ export class MailingSingleComponent implements OnInit, OnDestroy {
     });
   }
 
+  send() {
+    this._mailingService.send(this.id,
+      {
+        Persons: this.toppings.value,
+        Name: this.model.name,
+        Content: this.model.content
+      }).subscribe(x => {
+      console.log(x);
+    });
+  }
+
   ngOnDestroy() {
     this.sub.unsubscribe();
   }

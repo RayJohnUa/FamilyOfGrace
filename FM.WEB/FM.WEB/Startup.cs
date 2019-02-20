@@ -4,6 +4,7 @@ using FM.REPOSITORIES.Classes;
 using FM.REPOSITORIES.Interfaces;
 using FM.SERVICES.Classes;
 using FM.SERVICES.Interfaces;
+using FM.SMSSERVICES;
 using FM.WEB.Model;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -74,7 +75,7 @@ namespace FM.WEB
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IPersonRepository, PersonRepository>();
             services.AddTransient<IMailingRepository, MailingRepository>();
-            services.AddTransient<IMailingRepository, MailingRepository>();
+            services.AddTransient<IGroupSesionPersonRepository, GroupSesionPersonRepository>();
             services.AddTransient<IHomeGroupRepository, HomeRepository>();
             services.AddTransient<IGroupSessionRepository, GroupSessionRepository>();
 
@@ -83,6 +84,7 @@ namespace FM.WEB
             services.AddTransient<IMailingService, MailingService>();
             services.AddTransient<IHomeGroupService, HomeGroupSevice>();
             services.AddTransient<IGroupSessionService, GroupSessionService>();
+            services.AddTransient<ISmsService, SmsService>();
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

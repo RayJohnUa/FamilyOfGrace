@@ -16,6 +16,7 @@ export class ApiHelper {
   public readonly MailingList = this._baseUrl + "/api/Mailing/List";
   public readonly MailingGet = this._baseUrl + "/api/Mailing/Get";
   public readonly MailingUpdate = this._baseUrl + "/api/Mailing/Update";
+  public readonly MailingSend = this._baseUrl + "/api/Mailing/Send";
   public readonly MailingAdd = this._baseUrl + "/api/Mailing/Add";
   public readonly MailingDelete = this._baseUrl + "/api/Mailing/Delete";
 
@@ -23,6 +24,9 @@ export class ApiHelper {
   public readonly HomeGroupAdd = this._baseUrl + "/api/HomeGroup/Add";
   public readonly HomeGroupDelete = this._baseUrl + "/api/HomeGroup/Delete";
   public readonly HomeGroupGet = this._baseUrl + "/api/HomeGroup/Get";
-
+  public readonly HomeGroupAddWeek = this._baseUrl + "/api/HomeGroup/AddWeek";
+  public readonly HomeGroupDeleteWeek = this._baseUrl + "/api/HomeGroup/DeleteWeek";
+  public readonly HomeGroupAsignToWeek = this._baseUrl + "/api/HomeGroup/AsignToWeek";
+  public readonly HomeGroupSend = this._baseUrl + "/api/HomeGroup/Send";
   
 }

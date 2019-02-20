@@ -11,18 +11,48 @@ namespace FM.SERVICES.Classes
     public class GroupSessionService : IGroupSessionService
     {
         private readonly IGroupSessionRepository _groupSessionRepository;
-        private IRepository<GroupSesionPerson> _groupSesionPersonRepository;
-        public GroupSessionService(IGroupSessionRepository groupSessionRepository, IRepository<GroupSesionPerson> groupSesionPersonRepository)
+        private IGroupSesionPersonRepository _groupSesionPersonRepository;
+        public GroupSessionService(IGroupSessionRepository groupSessionRepository, IGroupSesionPersonRepository groupSesionPersonRepository)
         {
             _groupSessionRepository = groupSessionRepository;
             _groupSesionPersonRepository = groupSesionPersonRepository;
+        }
+
+        public bool AssigneToWeek(int personId, int groupSesionId, bool isAsigne)
+        {
+            try
+            {
+                if (isAsigne) 
+                {
+                    if (!_groupSesionPersonRepository.CheckIsIsset(personId , groupSesionId))
+                    {
+                        _groupSesionPersonRepository.Insert(new GroupSesionPerson()
+                        {
+                            IsDelete = false,
+                            PersonId = personId,
+                            GroupSessionId = groupSesionId
+                        });
+                    }
+                }
+                else
+                {
+                    _groupSesionPersonRepository.DeleteByPersonAndSesion(personId, groupSesionId);
+                }
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         public bool DeleteGroupSession(long id)
         {
             try
             {
-                _groupSessionRepository.Delete(_groupSessionRepository.Get(id));
+                var res = _groupSessionRepository.Get(id);
+                _groupSessionRepository.Delete(res);
                 return true;
             }
             catch (Exception e)

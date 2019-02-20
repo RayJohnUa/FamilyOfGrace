@@ -28,4 +28,21 @@ export class HomeGroupService {
   add(homegroup) {
     return this.http.post(this._apiHelper.HomeGroupAdd, homegroup);
   }
+
+  addWeek(id , model) {
+    return this.http.post(this._apiHelper.HomeGroupAddWeek + "?id=" + id,  model );
+  }
+
+  send(id) {
+    return this.http.post(this._apiHelper.HomeGroupSend + "?id=" + id , null);
+  }
+
+  deleteWeek(id)
+  {
+    return this.http.delete(this._apiHelper.HomeGroupDeleteWeek + "?id=" + id);
+  }
+
+  asigneToWeek(model) {
+    return this.http.post(this._apiHelper.HomeGroupAsignToWeek , model);
+  }
 }

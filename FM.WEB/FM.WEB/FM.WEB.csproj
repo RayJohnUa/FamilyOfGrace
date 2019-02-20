@@ -29,6 +29,7 @@
   <ItemGroup>
     <ProjectReference Include="..\FM.REPOSITORIES\FM.REPOSITORIES.csproj" />
     <ProjectReference Include="..\FM.SERVICES\FM.SERVICES.csproj" />
+    <ProjectReference Include="..\FM.SMSSERVICES\FM.SMSSERVICES.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using FM.DATA;
 using FM.SERVICES.Interfaces;
+using FM.SMSSERVICES;
 using FM.WEB.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -20,10 +21,12 @@ namespace FM.WEB.Controllers
     {
         private readonly IMailingService _mailingService;
         private readonly IMapper _mapper;
-        public MailingController(IMailingService mailingService , IMapper mapper)
+        private readonly ISmsService _smsService;
+        public MailingController(IMailingService mailingService , IMapper mapper , ISmsService smsService)
         {
             _mailingService = mailingService;
             _mapper = mapper;
+            _smsService = smsService;
         }
 
         [HttpGet("List")]
@@ -78,6 +81,27 @@ namespace FM.WEB.Controllers
             if (oldMailing == null)
                 return BadRequest("Таку людину не знайдено");
             return Ok(_mailingService.DeleteMailing(id));
+        }
+
+        [HttpPost("Send")] 
+        public ActionResult<bool> Send(int id, [FromBody]MailingViewModel mailing)
+        {
+            var oldMailing = _mailingService.GetMailing(id);
+            if (oldMailing == null)
+                return BadRequest("Таку розсилку не знайдено");
+            if (ModelState.IsValid)
+            {
+                oldMailing.Name = mailing.Name;
+                oldMailing.Content = mailing.Content;
+                foreach (var item in oldMailing.MailingPerson)
+                {
+                    var body = mailing.Content.Replace("{name}",
+                        string.Format("{0} {1}", item.Person.FirstName, item.Person.LastName));
+                    _smsService.Send(item.Person.Telephone , body);
+                }
+                return Ok(_mailingService.UpdateMailing(oldMailing, _mapper.Map<List<Person>>(mailing.Persons)));
+            }
+            return BadRequest(ModelState);
         }
     }
 }
