@@ -129,7 +129,7 @@ namespace FM.WEB.Controllers
             var group = _groupService.GetHomeGroup(id);
             if (group == null)
                 return BadRequest("Таку групу не знайдено");
-            var groupSesionPersons = group.GroupSession.FirstOrDefault().GroupSesionPersons.ToArray();
+            var groupSesionPersons = group.GroupSession.LastOrDefault().GroupSesionPersons.ToArray();
 
             Shuffle(groupSesionPersons);
 
@@ -138,11 +138,11 @@ namespace FM.WEB.Controllers
                 string body = "";
                 if (i + 1 >= groupSesionPersons.Length)
                 {
-                    body = string.Format("Привіт {0}, твій молитовний партнер на наступний тиждень {1} {2}. Благословенного тобі тижня!", groupSesionPersons[i].Person.FirstName, groupSesionPersons[0].Person.FirstName, groupSesionPersons[0].Person.LastName);
+                    body = string.Format("Привіт {0}, твій молитовний партнер на наступний тиждень {1} {2} ({3}). Благословенного тобі тижня!", groupSesionPersons[i].Person.FirstName, groupSesionPersons[0].Person.FirstName, groupSesionPersons[0].Person.LastName , groupSesionPersons[0].Person.Telephone);
                 }
                 else
                 {
-                    body = string.Format("Привіт {0}, твій молитовний партнер на наступний тиждень {1} {2}. Благословенного тобі тижня!", groupSesionPersons[i].Person.FirstName, groupSesionPersons[i + 1].Person.FirstName, groupSesionPersons[i + 1].Person.LastName);
+                    body = string.Format("Привіт {0}, твій молитовний партнер на наступний тиждень {1} {2} ({3}). Благословенного тобі тижня!", groupSesionPersons[i].Person.FirstName, groupSesionPersons[i + 1].Person.FirstName, groupSesionPersons[i + 1].Person.LastName , groupSesionPersons[i + 1].Person.Telephone);
                 }
                 _smsService.Send(groupSesionPersons[i].Person.Telephone, body);
             }

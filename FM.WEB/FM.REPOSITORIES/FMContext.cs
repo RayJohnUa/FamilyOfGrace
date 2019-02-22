@@ -15,5 +15,6 @@ namespace FM.REPOSITORIES
         public DbSet<MailingPerson> MailingPersons { get; set; }
         public DbSet<HomeGroup> HomeGroups { get; set; }
         public DbSet<GroupSession> GroupSessions { get; set; }
+        public DbSet<Prayer> Prayers { get; set; }
     }
 }

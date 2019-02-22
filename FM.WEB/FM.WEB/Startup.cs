@@ -78,8 +78,10 @@ namespace FM.WEB
             services.AddTransient<IGroupSesionPersonRepository, GroupSesionPersonRepository>();
             services.AddTransient<IHomeGroupRepository, HomeRepository>();
             services.AddTransient<IGroupSessionRepository, GroupSessionRepository>();
+            services.AddTransient<IPrayerRepository, PrayerRepository>();
 
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IPrayerService, PrayerService>();
             services.AddTransient<IPersonService, PersonService>();
             services.AddTransient<IMailingService, MailingService>();
             services.AddTransient<IHomeGroupService, HomeGroupSevice>();
